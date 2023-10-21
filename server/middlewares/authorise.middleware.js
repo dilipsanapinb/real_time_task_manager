@@ -1,4 +1,4 @@
-const { models } = require("mongoose");
+
 
 const authoriseUser = (roles_array) => {
     return (req, res, next) => {
@@ -6,7 +6,7 @@ const authoriseUser = (roles_array) => {
         if (roles_array.includes(userRole)) {
             next();
         } else {
-            res.status(401).json({message:"User is authorised to this action"})
+            res.status(403).json({message:"User is authorised to this action"})
         }
     }
 }
