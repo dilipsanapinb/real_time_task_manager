@@ -128,3 +128,7 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# JWT tokens
+/jwtRS256.key
+/jwtRS256.key.pub
