@@ -3,6 +3,7 @@ require('dotenv').config();
 const PORT = process.env.PORT;
 const connection = require('./database/db');
 const userRouter = require('./routes/user.routes');
+const taskRouter=require('./routes/task.routes')
 const app = express();
 
 const server=require('http').createServer(app)
@@ -18,6 +19,7 @@ app.get('/', (req,res) => {
 
 // routes
 app.use('/user', userRouter);
+app.use('/task', taskRouter);
 
 server.listen(PORT, async () => {
     // before starting the server check the connection with DB in asynchronous manner;

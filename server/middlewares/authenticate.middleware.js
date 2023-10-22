@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
+const path = require('path');
 require('dotenv').config();
 const publicPath = path.join(__dirname, "..", "jwtRS256.key.pub");
 const publicKey = fs.readFileSync(publicPath, "utf8");

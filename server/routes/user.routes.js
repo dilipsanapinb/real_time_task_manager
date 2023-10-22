@@ -2,6 +2,10 @@ const express = require('express');
 const userControllers = require("../controllers/user.controllers");
 const userRouter = express.Router();
 
+
+// get all users
+userRouter.get('/allusers', userControllers.getAllUsers);
+
 // get user by id
 userRouter.get('/:userId', userControllers.getUserById);
 
