@@ -6,6 +6,20 @@ const bcrypt = require("bcrypt");
 
 const privatePath = path.join(__dirname, "..", "jwtRS256.key");
 const privateKey = fs.readFileSync(privatePath, "utf8");
+
+
+// get all users
+exports.getAllUsers = async (req, res) => {
+    try {
+        const allUsers = await User.find();
+        res.status(200).json({ message: "All Users",users:allUsers });
+    } catch (error) {
+        console.log("Error occcured: ", error.message);
+        res
+            .status(500)
+            .json({ message: "Something went wrong at gettiing all users" });
+    }
+};
 // get user by id controller;
 exports.getUserById = async (req, res) => {
     try {
@@ -26,6 +40,7 @@ exports.getUserById = async (req, res) => {
             .json({ message: "Something went wrong at gettiing the user by id" });
     }
 };
+
 
 // register the user controller;
 exports.registerUser = async (req, res) => {
