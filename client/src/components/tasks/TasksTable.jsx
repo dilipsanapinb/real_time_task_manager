@@ -51,7 +51,7 @@ const TasksTable = ({ tasks, handleDelete }) => {
                                             onChange={() => handleTaskCompleted(task)}
                                             mr={2}
                                         >
-                                            Mark as Completed
+                                            <strong>Mark as Completed</strong>
                                         </Checkbox >
                                         <Button
                                             size="sm"
@@ -79,7 +79,7 @@ const TasksTable = ({ tasks, handleDelete }) => {
                 <ModalOverlay />
                 <ModalContent>
                     <ModalHeader>Confirm Task Completetion</ModalHeader>
-                    <ModalBody>Are you sure you want to maek this task as completed?</ModalBody>
+                    <ModalBody>Are you sure you want to make this task as completed?</ModalBody>
                     <ModalFooter>
                         <Button
                             colorScheme='green'
