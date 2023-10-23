@@ -5,10 +5,16 @@ const connection = require('./database/db');
 const userRouter = require('./routes/user.routes');
 const taskRouter=require('./routes/task.routes')
 const app = express();
-
+const cors = require('cors');
 const server=require('http').createServer(app)
 const io = require('socket.io')(server);
 
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST","PATCH","DELETE"],
+  })
+);
 // express.json middleware to jsonfy the data
 app.use(express.json());
 
