@@ -7,10 +7,9 @@ import TasksTable from '../components/tasks/TasksTable';
 
 
 const TasksPage = () => {
-  const [tasks, setTasks] = useState([]);
+  const [inCompleteTasks, setInCompleteTasks] = useState([]);
   useEffect(() => {
     const fetchTasksData = async () => {
-     
       try {
         const accessToken = JSON.parse(localStorage.getItem('accesToken'));
         const config = {
@@ -21,13 +20,15 @@ const TasksPage = () => {
         }
         const { data } = await axios.get('http://localhost:8002/task/getalltasks', config);
         // console.log(data);
-        setTasks(data)
+        const filteredTasks = data.filter((task) => !task.completed);
+        // console.log(filteredTasks);
+        setInCompleteTasks(filteredTasks)
       } catch (error) {
         console.log('Error occured in fetching all tasks: ', error);
       }
     }
     fetchTasksData();
-  },[]);
+  });
 
   const handleEdit =async () => {
     
@@ -39,7 +40,7 @@ const TasksPage = () => {
     <>
       <Navbar />
       <Box>
-        <TasksTable tasks={tasks} handleDelete={handleDelete} handleEdit={handleEdit } />
+        <TasksTable tasks={inCompleteTasks} handleDelete={handleDelete} handleEdit={handleEdit } />
       </Box>
     </>
   )

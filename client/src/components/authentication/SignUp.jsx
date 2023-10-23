@@ -38,7 +38,7 @@ const SignUp = () => {
                 ('http://localhost:8002/user/register',
                     { username, email, password, role },
                     config);
-            console.log(data);
+            // console.log(data);
             toast({
                 title: 'Registration Successful',
                 status: 'success',

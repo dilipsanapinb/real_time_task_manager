@@ -8,8 +8,8 @@ import { Table,  TableCaption,  Tbody, Td, Th, Thead, Tr } from '@chakra-ui/tabl
 import axios from 'axios';
 import React, { useState } from 'react'
 
-const TasksTable = ({ tasks, handleDelete }) => {
-    const { isOpen, onOpen, onClose } = useDisclosure();
+const CompletedTasksTable = ({tasks,handleDelete}) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
     const toast = useToast();
     const [completed, setCompletedTask] = useState(null);
 
@@ -28,7 +28,7 @@ const TasksTable = ({ tasks, handleDelete }) => {
                 }
             }
             const updateData = {
-                completed:true
+                completed:false
             }
             await axios.patch(`http://localhost:8002/task/update/${completed._id}`,updateData, config);
             // console.log(data);
@@ -55,10 +55,10 @@ const TasksTable = ({ tasks, handleDelete }) => {
     return (
         <Box p={4} bg="white" boxShadow="md" borderRadius="lg">
             <Heading as="h2" size="lg" mb={4}>
-                Tasks Table
+                Completed-Tasks Table
             </Heading>
             <Table size='sm' variant="striped" colorScheme="teal">
-                <TableCaption placement="top">Tasks Table</TableCaption>
+                <TableCaption placement="top">Completed-Tasks Table</TableCaption>
                 <Thead >
                     <Tr>
                         <Th>Type of Task</Th>
@@ -84,7 +84,7 @@ const TasksTable = ({ tasks, handleDelete }) => {
                                             onChange={() => handleTaskCompleted(task)}
                                             mr={2}
                                         >
-                                            <strong>Mark as Completed</strong>
+                                            <strong>Mark as Not-Completed</strong>
                                         </Checkbox >
                                         <Button
                                             size="sm"
@@ -111,8 +111,8 @@ const TasksTable = ({ tasks, handleDelete }) => {
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader>Confirm Task Completetion</ModalHeader>
-                    <ModalBody>Are you sure you want to make this task as completed?</ModalBody>
+                    <ModalHeader>Confirm Task is Not Completed</ModalHeader>
+                    <ModalBody>Are you sure you want to make this task as not completed?</ModalBody>
                     <ModalFooter>
                         <Button
                             colorScheme='green'
@@ -132,5 +132,6 @@ const TasksTable = ({ tasks, handleDelete }) => {
         </Box>
         
     )
-};
-export default TasksTable
+}
+
+export default CompletedTasksTable
