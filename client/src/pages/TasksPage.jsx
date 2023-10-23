@@ -1,25 +1,48 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar/Navbar'
-import { Box, Flex,Text } from '@chakra-ui/layout';
+import { Box } from '@chakra-ui/layout';
+import axios from 'axios';
+import TasksTable from '../components/tasks/TasksTable';
 
 
 
 const TasksPage = () => {
-  return (
-      <>
-      <Navbar />
-      <Flex>
-      
+  const [tasks, setTasks] = useState([]);
+  useEffect(() => {
+    const fetchTasksData = async () => {
+     
+      try {
+        const accessToken = JSON.parse(localStorage.getItem('accesToken'));
+        const config = {
+          headers: {
+            'Content-type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
+          }
+        }
+        const { data } = await axios.get('http://localhost:8002/task/getalltasks', config);
+        // console.log(data);
+        setTasks(data)
+      } catch (error) {
+        console.log('Error occured in fetching all tasks: ', error);
+      }
+    }
+    fetchTasksData();
+  },[]);
 
-      {/* Task List */}
-      <Box p={4} flex="1">
-        {/* Task list components go here */}
-        <Text fontSize="lg">Task List</Text>
-        {/* Add your task list rendering here */}
+  const handleEdit =async () => {
+    
+  }
+  const handleDelete =async () => {
+    
+  }
+  return (
+    <>
+      <Navbar />
+      <Box>
+        <TasksTable tasks={tasks} handleDelete={handleDelete} handleEdit={handleEdit } />
       </Box>
-    </Flex>
-      </>
+    </>
   )
-}
+};
 
 export default TasksPage
