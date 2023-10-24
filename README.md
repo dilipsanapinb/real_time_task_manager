@@ -35,7 +35,8 @@ To set up the frontend client, navigate to the 'client' directory and follow the
   - Normal users can manage their own tasks and tasks assigned to others.
   - Admins can manage all tasks within the organization.
 
-
+## Deployed Backend:
+[Deployed Backend Link](https://taskmanager-900c.onrender.com/)
 
 ## Postman Documentation
 For detailed API documentation and examples, please refer to our Postman collection. The collection provides endpoints and sample requests for interacting with our API.
