@@ -4,8 +4,9 @@ const Task = require('../models/task.model');
 // create the task
 exports.createTask = async (req, res) => {
     try {
+        const assignedBy = req.body.userId;
         const { description, title, assignedTo,project } = req.body;
-        const task = new Task({ description, title, assignedTo, project });
+        const task = new Task({ description, title, assignedTo, project,assignedBy });
         const savedTask = await task.save();
         res.status(201).json(savedTask);
     } catch (error) {
@@ -23,7 +24,9 @@ exports.getAllTasks = async (req, res) => {
         if (userRole === "admin") {
             tasks = await Task.find();
         } else {
-            tasks = await Task.find({ assignedTo: userId });
+            tasks = await Task.find({
+                $or: [{ assignedTo: userId }, { assignedBy: userId }],
+            });
         }
 
         res.status(200).json(tasks);
