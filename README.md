@@ -37,6 +37,12 @@ To set up the frontend client, navigate to the 'client' directory and follow the
 
 ## Deployed Backend:
 [Deployed Backend Link](https://taskmanager-900c.onrender.com/)
+- Backend deployed on render.
+- Sometimes render is slower, so please keep patients :).
+
+## Deployed fronend:
+[Deployed Frontend Link](https://imaginative-gaufre-5063ee.netlify.app/)
+- Frontend is deployed on netlify.
 
 ## Postman Documentation
 For detailed API documentation and examples, please refer to our Postman collection. The collection provides endpoints and sample requests for interacting with our API.
