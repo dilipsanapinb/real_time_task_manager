@@ -1,7 +1,10 @@
 import { Box, Button, Flex, FormControl, FormLabel, Input, Select, Textarea, useBreakpointValue, useToast } from '@chakra-ui/react';
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import io from 'socket.io-client';
+const socket = io('http://localhost:8002/task');
+
 
 const CreateTaskForm = ({ users }) => {
     const [project, setProject] = useState('');
@@ -23,8 +26,12 @@ const CreateTaskForm = ({ users }) => {
                 }
             }
             // console.log(project, assignedTo, title, description);
-            await axios.post('http://localhost:8002/task/create', { project, assignedTo, title, description }, config);
-            // console.log(data);
+            const response = await axios.post('http://localhost:8002/task/create', { project, assignedTo, title, description }, config);
+            
+            // emit event
+            socket.emit('createTask', response.data);
+
+
             toast({
                 title: "Task Created Successfully",
                 status: 'success',

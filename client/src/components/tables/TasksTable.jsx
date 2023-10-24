@@ -33,6 +33,8 @@ const TasksTable = ({ tasks, handleDelete }) => {
             }
             await axios.patch(`http://localhost:8002/task/update/${completed._id}`,updateData, config);
             // console.log(data);
+            const filteredTasks = tasks.filter((task) => !task.completed);
+            setCompletedTask(filteredTasks)
             toast({
                 title: "Task Status Updated",
                 status: 'success',
