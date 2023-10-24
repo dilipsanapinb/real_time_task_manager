@@ -32,7 +32,7 @@ To set up the frontend client, navigate to the 'client' directory and follow the
   - Update tasks
   - Delete tasks
 - Role-based access control:
-  - Normal users can manage their own tasks and tasks assigned to others.
+  - Normal users can manage their own tasks and tasks assigned to others by user himself.
   - Admins can manage all tasks within the organization.
 
 ## Deployed Backend:
