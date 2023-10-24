@@ -21,7 +21,7 @@ const TasksPage = () => {
           }
         }
         const { data } = await axios.get('http://localhost:8002/task/getalltasks', config);
-        // console.log(data);
+        console.log(data.task);
         const filteredTasks = data.filter((task) => !task.completed);
         // console.log(filteredTasks);
         setInCompleteTasks(filteredTasks)
