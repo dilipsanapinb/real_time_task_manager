@@ -9,6 +9,8 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 
+
+
 const TasksTable = ({ tasks, handleDelete }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const toast = useToast();
@@ -19,7 +21,7 @@ const TasksTable = ({ tasks, handleDelete }) => {
         onOpen();
     };
 
-    const confirmTaskComplete = async() => {
+    const confirmTaskComplete = async () => {
         try {
             const accessToken = JSON.parse(localStorage.getItem('accesToken'));
             const config = {
@@ -29,11 +31,11 @@ const TasksTable = ({ tasks, handleDelete }) => {
                 }
             }
             const updateData = {
-                completed:true
+                completed: true
             }
-            await axios.patch(`http://localhost:8002/task/update/${completed._id}`,updateData, config);
+            await axios.patch(`http://localhost:8002/task/update/${completed._id}`, updateData, config);
             // console.log(data);
-            const filteredTasks = tasks.filter((task) =>task._id!==completed._id);
+            const filteredTasks = tasks.filter((task) => task._id !== completed._id);
             setCompletedTask(filteredTasks);
 
 
@@ -52,7 +54,7 @@ const TasksTable = ({ tasks, handleDelete }) => {
                 status: 'error',
                 'duration': 5000,
                 isClosable: true,
-                position:'bottom'
+                position: 'bottom'
             })
         }
         onClose();
@@ -78,11 +80,11 @@ const TasksTable = ({ tasks, handleDelete }) => {
                     {
                         tasks.map((task) => (
                             <TaskRow
-              key={task._id}
-              task={task}
-              handleTaskCompleted={handleTaskCompleted}
-              handleDelete={handleDelete}
-            />
+                                key={task._id}
+                                task={task}
+                                handleTaskCompleted={handleTaskCompleted}
+                                handleDelete={handleDelete}
+                            />
                         ))
                     }
                 </Tbody>
@@ -128,7 +130,7 @@ const TaskRow = ({ task, handleTaskCompleted, handleDelete }) => {
                     }
                 };
 
-                const [userData,assignedByData]=await Promise.all([await axios.get(`http://localhost:8002/user/${task.assignedTo}`, config),
+                const [userData, assignedByData] = await Promise.all([await axios.get(`http://localhost:8002/user/${task.assignedTo}`, config),
                 
                 await axios.get(`http://localhost:8002/user/${task.assignedBy}`, config)])
                 
@@ -141,7 +143,7 @@ const TaskRow = ({ task, handleTaskCompleted, handleDelete }) => {
             }
         }
         fetchUserName();
-    }, [task.assignedTo,task.assignedBy]);
+    }, [task.assignedTo, task.assignedBy]);
     return (
         <Tr>
             <Td>{task.project}</Td>

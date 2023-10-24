@@ -6,18 +6,19 @@ import axios from 'axios';
 import EditTaskForm from '../forms/EditTaskForm';
 
 const EditTask = () => {
+
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
         try {
-            const fetchAllUsers = async() => {
+            const fetchAllUsers = async () => {
                 const { data } = await axios.get('http://localhost:8002/user/allusers');
                 setUsers(data.users);
                 // console.log(users);
             }
             fetchAllUsers();
         } catch (error) {
-            console.log('Something went wrong at fetching all users data: ',error);
+            console.log('Something went wrong at fetching all users data: ', error);
         }
     })
     return (

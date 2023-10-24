@@ -9,7 +9,8 @@ const GetProfile = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const toast = useToast();
-    const navigate=useNavigate()
+    const navigate = useNavigate();
+    
     // fetch user profile
     useEffect(() => {
         const fetchUserData = async () => {
