@@ -64,5 +64,5 @@ For detailed API documentation and examples, please refer to our Postman collect
 
 ## Frontend Screenshots:
 
-![Frontend LoginPage Screenshot](https://github.com/dilipsanapinb/real_time_task_manager/blob/main/images/LoginPage.png)
+![Frontend LoginPage Screenshot](/images/LoginPage.png)
 
