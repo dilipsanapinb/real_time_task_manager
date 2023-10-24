@@ -8,6 +8,7 @@ import TasksPage from './pages/TasksPage';
 import AssignTask from './components/tasks/AssignTask';
 import CompletedTask from './components/tasks/CompletedTask';
 import GetProfile from './components/authentication/GetProfile';
+import EditTask from './components/tasks/EditTask';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Route path="/assign-tasks" element={<AssignTask />} />
       <Route path="/completed-tasks" element={<CompletedTask />} />
       <Route path="/profile" element={<GetProfile />} />
+      <Route path="/edit/:taskId" element={<EditTask />} />
     </Routes>
   );
 }

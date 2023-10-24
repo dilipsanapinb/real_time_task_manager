@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar/Navbar'
 import { Box } from '@chakra-ui/layout';
 import axios from 'axios';
-import TasksTable from '../components/tasks/TasksTable';
+import TasksTable from '../components/tables/TasksTable';
 
 
 

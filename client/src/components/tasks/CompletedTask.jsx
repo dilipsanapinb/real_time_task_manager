@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Navbar from '../Navbar/Navbar'
 import { Box } from '@chakra-ui/layout';
 import axios from 'axios';
-import TasksTable from './TasksTable';
-import CompletedTasksTable from './CompletedTasksTable';
+import CompletedTasksTable from '../tables/CompletedTasksTable';
 
 const CompletedTask = () => {
     const [inCompleteTasks, setInCompleteTasks] = useState([]);
