@@ -4,7 +4,9 @@ import { Box } from '@chakra-ui/layout';
 import axios from 'axios';
 import CompletedTasksTable from '../tables/CompletedTasksTable';
 import { useToast } from '@chakra-ui/react';
+import io from 'socket.io-client';
 
+const socket = io('http://localhost:8002/task');
 const CompletedTask = () => {
     const [inCompleteTasks, setInCompleteTasks] = useState([]);
     const toast = useToast();
@@ -40,6 +42,11 @@ const CompletedTask = () => {
                 }
             }
             await axios.delete(`http://localhost:8002/task/delete/${taskId}`, config);
+            setInCompleteTasks((prevTasks) => prevTasks.filter((task) => task._id !== taskId));
+            // emit the event
+            socket.emit('deleteTask', taskId);
+
+            // toast
             toast({
                 title: "Task Deleted Successfully",
                 status: 'success',

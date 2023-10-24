@@ -2,6 +2,9 @@ import { Box, Button, Flex, FormControl, FormLabel, Input, Select, Textarea, use
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
+import io from 'socket.io-client';
+
+const socket = io('http://localhost:8002/task');
 
 const EditTaskForm = ({ users }) => {
     const { taskId} = useParams();
@@ -60,6 +63,9 @@ const [project, setProject] = useState('');
             // console.log(project, assignedTo, title, description);
             await axios.patch(`http://localhost:8002/task/update/${taskId}`,updateData , config);
             // console.log(data);
+
+            // emit the event
+            socket.emit('editTask',taskId,updateData)
             toast({
                 title: "Task Edited Successfully",
                 status: 'success',

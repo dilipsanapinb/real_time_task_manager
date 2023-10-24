@@ -57,75 +57,81 @@ const Navbar = () => {
     }, [isLoggedIn]);
 
     return (
-        <Flex
-            as={'nav'}
-            align={'center'}
-            padding={4}
-            bg={'blue.500'}
-            color={'white'}
+        <Box
+            position={'sticky'}
+            top={0}
+            zIndex={100}
         >
-            <IconButton
-                aria-label="Open Drawer"
-                icon={<HamburgerIcon />}
-                onClick={taggleDrawer}
-                display={{ base: 'block' }}
-            />
-            <Link to='/'>
-                <Box cursor='pointer' alignItems={'center'} marginLeft={10}>
-                    <Text
-                        fontFamily={'sans-serif'}
-                        fontSize={30}
-                        fontWeight={'bold'}
-                    >
-                        Task Manager
-                    </Text>
-                </Box>
-            </Link>
+            <Flex
+                as={'nav'}
+                align={'center'}
+                padding={4}
+                bg={'blue.500'}
+                color={'white'}
+            >
+                <IconButton
+                    aria-label="Open Drawer"
+                    icon={<HamburgerIcon />}
+                    onClick={taggleDrawer}
+                    display={{ base: 'block' }}
+                />
+                <Link to='/'>
+                    <Box cursor='pointer' alignItems={'center'} marginLeft={10}>
+                        <Text
+                            fontFamily={'sans-serif'}
+                            fontSize={30}
+                            fontWeight={'bold'}
+                        >
+                            Task Manager
+                        </Text>
+                    </Box>
+                </Link>
             
-            <Drawer isOpen={isOpen} placement="left" size="xs" onClose={taggleDrawer}>
-                <DrawerOverlay>
-                    <DrawerContent>
-                        <DrawerHeader>User Navigation</DrawerHeader>
-                        <Flex align={'center'}>
-                            <Avatar name={userInitials} src='/profile' />
-                            <Box ml='3'>
-                                <Text fontWeight={'bold'}>
-                                    {userName}
-                                </Text>
-                                <Badge colorScheme={isActive ? 'green' : 'red'}>{isActive ? 'Active' : "Inactive"}</Badge>
-                            </Box>
-                        </Flex>
-                        <DrawerBody marginTop={'10'}>
-                            <Stack spacing={4}>
-                                {isLoggedIn ? (
-                                    <>
-                                    <ChakraLink as={Link} to="/tasks" fontSize="lg" color="blue.500">
-                                    Tasks
-                                </ChakraLink>
-                                <ChakraLink as={Link} to="/assign-tasks" fontSize="lg" color="blue.500">
-                                    Assign Tasks
-                                </ChakraLink>
-                                <ChakraLink as={Link} to="/completed-tasks" fontSize="lg" color="blue.500">
-                                    Completed Tasks
-                                </ChakraLink>
-                                <ChakraLink as={Link} to="/profile" fontSize="lg" color="blue.500">
-                                    Profile
-                                </ChakraLink>
-                                <Button variant={'outline'} colorScheme='red' onClick={handleLogout}>
-                                    Logout
-                                </Button>
-                                    </>
-                                ) : (
+                <Drawer isOpen={isOpen} placement="left" size="xs" onClose={taggleDrawer}>
+                    <DrawerOverlay>
+                        <DrawerContent>
+                            <DrawerHeader>User Navigation</DrawerHeader>
+                            <Flex align={'center'}>
+                                <Avatar name={userInitials} src='/profile' />
+                                <Box ml='3'>
+                                    <Text fontWeight={'bold'}>
+                                        {userName}
+                                    </Text>
+                                    <Badge colorScheme={isActive ? 'green' : 'red'}>{isActive ? 'Active' : "Inactive"}</Badge>
+                                </Box>
+                            </Flex>
+                            <DrawerBody marginTop={'10'}>
+                                <Stack spacing={4}>
+                                    {isLoggedIn ? (
+                                        <>
+                                            <ChakraLink as={Link} to="/tasks" fontSize="lg" color="blue.500">
+                                                Tasks
+                                            </ChakraLink>
+                                            <ChakraLink as={Link} to="/assign-tasks" fontSize="lg" color="blue.500">
+                                                Assign Tasks
+                                            </ChakraLink>
+                                            <ChakraLink as={Link} to="/completed-tasks" fontSize="lg" color="blue.500">
+                                                Completed Tasks
+                                            </ChakraLink>
+                                            <ChakraLink as={Link} to="/profile" fontSize="lg" color="blue.500">
+                                                Profile
+                                            </ChakraLink>
+                                            <Button variant={'outline'} colorScheme='red' onClick={handleLogout}>
+                                                Logout
+                                            </Button>
+                                        </>
+                                    ) : (
                                         <ChakraLink as={Link} to="/" fontSize="lg" color="blue.500">
-                    Login
-                  </ChakraLink>
-                                )}
-                            </Stack>
-                        </DrawerBody>
-                    </DrawerContent>
-                </DrawerOverlay>
-            </Drawer>
-        </Flex>
+                                            Login
+                                        </ChakraLink>
+                                    )}
+                                </Stack>
+                            </DrawerBody>
+                        </DrawerContent>
+                    </DrawerOverlay>
+                </Drawer>
+            </Flex>
+        </Box>
     )
 };
 export default Navbar
