@@ -6,19 +6,19 @@ const authoriseUser = require('../middlewares/authorise.middleware');
 const taskRouter = express.Router();
 
 // create the task
-taskRouter.post('/create', authenticateUser,taskControllers.createTask);
+taskRouter.post('/create', authenticateUser,authoriseUser(['user','admin']),taskControllers.createTask);
 
 // get all tasks
-taskRouter.get("/getalltasks", authenticateUser, taskControllers.getAllTasks);
+taskRouter.get("/getalltasks", authenticateUser,authoriseUser(['user','admin']), taskControllers.getAllTasks);
 
 // get task by id;
-taskRouter.get("/:id", authenticateUser, taskControllers.getTaskById);
+taskRouter.get("/:id", authenticateUser,authoriseUser(['user','admin']), taskControllers.getTaskById);
 
 // update the task
-taskRouter.patch("/update/:id", authenticateUser, taskControllers.updateTask);
+taskRouter.patch("/update/:id", authenticateUser,authoriseUser(['user','admin']), taskControllers.updateTask);
 
 // delete the task 
-taskRouter.delete("/delete/:id", authenticateUser, taskControllers.deleteTask);
+taskRouter.delete("/delete/:id", authenticateUser,authoriseUser(['user','admin']), taskControllers.deleteTask);
 
 
 module.exports = taskRouter;
