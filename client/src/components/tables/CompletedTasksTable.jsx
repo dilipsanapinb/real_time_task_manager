@@ -9,8 +9,10 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 
-const CompletedTasksTable = ({tasks,handleDelete}) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+
+
+const CompletedTasksTable = ({ tasks, handleDelete }) => {
+    const { isOpen, onOpen, onClose } = useDisclosure();
     const toast = useToast();
     const [completed, setCompletedTask] = useState(null);
 
@@ -19,7 +21,7 @@ const CompletedTasksTable = ({tasks,handleDelete}) => {
         onOpen();
     };
 
-    const confirmTaskComplete = async() => {
+    const confirmTaskComplete = async () => {
         try {
             const accessToken = JSON.parse(localStorage.getItem('accesToken'));
             const config = {
@@ -29,11 +31,11 @@ const CompletedTasksTable = ({tasks,handleDelete}) => {
                 }
             }
             const updateData = {
-                completed:false
+                completed: false
             }
-            await axios.patch(`http://localhost:8002/task/update/${completed._id}`,updateData, config);
+            await axios.patch(`http://localhost:8002/task/update/${completed._id}`, updateData, config);
             // console.log(data);
-            const filteredTasks = tasks.filter((task) =>task._id!==completed._id);
+            const filteredTasks = tasks.filter((task) => task._id !== completed._id);
             setCompletedTask(filteredTasks);
             toast({
                 title: "Task Status Updated",
@@ -50,7 +52,7 @@ const CompletedTasksTable = ({tasks,handleDelete}) => {
                 status: 'error',
                 'duration': 5000,
                 isClosable: true,
-                position:'bottom'
+                position: 'bottom'
             })
         }
         onClose();
@@ -89,8 +91,8 @@ const CompletedTasksTable = ({tasks,handleDelete}) => {
                                         >
                                             <strong>Mark as Not-Completed</strong>
                                         </Checkbox >
-                                        <Link to={`/edit/${task._id}` }>
-                                        {/* <Button
+                                        <Link to={`/edit/${task._id}`}>
+                                            {/* <Button
                                             size="sm"
                                             colorScheme="blue"
                                             
@@ -137,6 +139,6 @@ const CompletedTasksTable = ({tasks,handleDelete}) => {
         </Box>
         
     )
-}
+};
 
 export default CompletedTasksTable

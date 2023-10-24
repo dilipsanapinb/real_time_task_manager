@@ -7,6 +7,8 @@ import { useToast } from '@chakra-ui/react';
 import io from 'socket.io-client';
 
 const socket = io('http://localhost:8002/task');
+
+
 const CompletedTask = () => {
     const [inCompleteTasks, setInCompleteTasks] = useState([]);
     const toast = useToast();
@@ -69,7 +71,7 @@ const CompletedTask = () => {
         <>
             <Navbar />
             <Box>
-                <CompletedTasksTable tasks={inCompleteTasks} handleDelete={handleDelete}  />
+                <CompletedTasksTable tasks={inCompleteTasks} handleDelete={handleDelete} />
             </Box>
         </>
     )

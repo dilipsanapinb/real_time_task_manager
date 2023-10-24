@@ -22,6 +22,6 @@ function App() {
       <Route path="/edit/:taskId" element={<EditTask />} />
     </Routes>
   );
-}
+};
 
 export default App;
