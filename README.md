@@ -5,12 +5,14 @@
 
 
 # Backend:
-- To start app enter the command 'npm start'
+- cd server
+- To start server enter the command 'npm start'
 
 # Frontend:
-- To start the frontend enter the command 'npm start'
+- cd client
+- To start the client enter the command 'npm start'
 - When user select the role as 'admin', the user need to verify himself i.e. can assign himself as admin by entering the security code.
-- Security Code=Verify989693@sEcutirY;
+- <Strong>Security Code=Verify989693@sEcutirY</strong>;
 
 # Functionalities
 - User login/signup
