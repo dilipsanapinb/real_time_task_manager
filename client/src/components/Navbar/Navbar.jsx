@@ -24,7 +24,7 @@ const Navbar = () => {
         navigate('/')
     }
 
-    const userName = user ? user.username : "Guest";
+    const userName = user ? user.username : "Guest view, please Loign or SignUp to access the Tasks";
     const userInitials = userName.split(' ').map((n, i, a) => i === 0 || i + 1 === a.length ? n[0] : null).join('');
     const isActive = true;
     const isLoggedIn = !!localStorage.getItem('accesToken');
@@ -75,7 +75,7 @@ const Navbar = () => {
                     onClick={taggleDrawer}
                     display={{ base: 'block' }}
                 />
-                <Link to='/'>
+                <Link to='/tasks'>
                     <Box cursor='pointer' alignItems={'center'} marginLeft={10}>
                         <Text
                             fontFamily={'sans-serif'}

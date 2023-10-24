@@ -43,7 +43,8 @@ const CreateTaskForm = ({ users }) => {
         } catch (error) {
             console.log('Something went wrong at creating the task: ', error);
             toast({
-                title: "Something went wrong at creating the task",
+                title: "Error",
+                description: 'Something went wrong at creating the task',
                 status: 'error',
                 'duration': 5000,
                 isClosable: true,
@@ -58,7 +59,7 @@ const CreateTaskForm = ({ users }) => {
                 <FormControl mb={4}>
                     <FormLabel>Type of Task</FormLabel>
                     <Select placeholder='Select Type of Task' onChange={(e) => setProject(e.target.value)}>
-                        <option value='personel'>Personel</option>
+                        <option value='personal'>Personal</option>
                         <option value='office'>Office</option>
                         <option value='home'>Home</option>
                     </Select>
