@@ -6,10 +6,11 @@ import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay 
 import { useToast } from '@chakra-ui/react';
 import { Table,  TableCaption,  Tbody, Td, Th, Thead, Tr } from '@chakra-ui/table';
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom';
 
-const CompletedTasksTable = ({tasks,handleDelete}) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+const TasksTable = ({ tasks, handleDelete }) => {
+    const { isOpen, onOpen, onClose } = useDisclosure();
     const toast = useToast();
     const [completed, setCompletedTask] = useState(null);
 
@@ -28,7 +29,7 @@ const CompletedTasksTable = ({tasks,handleDelete}) => {
                 }
             }
             const updateData = {
-                completed:false
+                completed:true
             }
             await axios.patch(`http://localhost:8002/task/update/${completed._id}`,updateData, config);
             // console.log(data);
@@ -55,10 +56,10 @@ const CompletedTasksTable = ({tasks,handleDelete}) => {
     return (
         <Box p={4} bg="white" boxShadow="md" borderRadius="lg">
             <Heading as="h2" size="lg" mb={4}>
-                Completed-Tasks Table
+                Tasks Table
             </Heading>
             <Table size='sm' variant="striped" colorScheme="teal">
-                <TableCaption placement="top">Completed-Tasks Table</TableCaption>
+                <TableCaption placement="top">Tasks Table</TableCaption>
                 <Thead >
                     <Tr>
                         <Th>Type of Task</Th>
@@ -71,39 +72,12 @@ const CompletedTasksTable = ({tasks,handleDelete}) => {
                 <Tbody>
                     {
                         tasks.map((task) => (
-                            <Tr key={task._id}>
-                                <Td>{task.project}</Td>
-                                <Td>{task.title}</Td>
-                                <Td>{task.description}</Td>
-                                <Td>{task.assignedTo}</Td>
-                                <Td>
-                                    <Flex>
-                                        <Checkbox
-                                            size="sm"
-                                            colorScheme="green"
-                                            onChange={() => handleTaskCompleted(task)}
-                                            mr={2}
-                                        >
-                                            <strong>Mark as Not-Completed</strong>
-                                        </Checkbox >
-                                        <Button
-                                            size="sm"
-                                            colorScheme="blue"
-                                            onClick={() => `/edit/${task._id}`}
-                                            mr={2}
-                                        >
-                                            Edit
-                                        </Button>
-                                        <Button
-                                            size="sm"
-                                            colorScheme="red"
-                                            onClick={() => handleDelete(task._id)}
-                                        >
-                                            Delete
-                                        </Button>
-                                    </Flex>
-                                </Td>
-                            </Tr>
+                            <TaskRow
+              key={task._id}
+              task={task}
+              handleTaskCompleted={handleTaskCompleted}
+              handleDelete={handleDelete}
+            />
                         ))
                     }
                 </Tbody>
@@ -111,8 +85,8 @@ const CompletedTasksTable = ({tasks,handleDelete}) => {
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader>Confirm Task is Not Completed</ModalHeader>
-                    <ModalBody>Are you sure you want to make this task as not completed?</ModalBody>
+                    <ModalHeader>Confirm Task Completetion</ModalHeader>
+                    <ModalBody>Are you sure you want to make this task as completed?</ModalBody>
                     <ModalFooter>
                         <Button
                             colorScheme='green'
@@ -132,6 +106,68 @@ const CompletedTasksTable = ({tasks,handleDelete}) => {
         </Box>
         
     )
-}
+};
 
-export default CompletedTasksTable
+const TaskRow = ({ task, handleTaskCompleted, handleDelete }) => {
+    const [assignedToName, setAssignedToName] = useState('');
+
+    useEffect(() => {
+        const fetchUserName = async () => {
+            try {
+                const accessToken = JSON.parse(localStorage.getItem('accesToken'));
+                const config = {
+                    headers: {
+                        'Content-type': 'application/json',
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                };
+
+                const { data } = await axios.get(`http://localhost:8002/user/${task.assignedTo}`, config);
+                // console.log(data);
+                setAssignedToName(data.user.username);
+            } catch (error) {
+                console.log('Error fetching user name: ', error);
+                setAssignedToName('N/A');
+            }
+        }
+        fetchUserName();
+    }, [task.assignedTo]);
+    return (
+        <Tr>
+            <Td>{task.project}</Td>
+            <Td>{task.title}</Td>
+            <Td>{task.description}</Td>
+            <Td>{assignedToName}</Td>
+            <Td>
+                <Flex>
+                    <Checkbox
+                        size="sm"
+                        colorScheme="green"
+                        onChange={() => handleTaskCompleted(task)}
+                        mr={2}
+                    >
+                        <strong>Mark as Completed</strong>
+                    </Checkbox >
+                    <Link to={`/edit/${task._id}`}>
+                        <Button
+                            size="sm"
+                            colorScheme="blue"
+                                            
+                            mr={2}
+                        >
+                            Edit
+                        </Button>
+                    </Link>
+                    <Button
+                        size="sm"
+                        colorScheme="red"
+                        onClick={() => handleDelete(task._id)}
+                    >
+                        Delete
+                    </Button>
+                </Flex>
+            </Td>
+        </Tr>
+    )
+};
+export default TasksTable

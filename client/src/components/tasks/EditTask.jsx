@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Navbar from '../Navbar/Navbar'
 import { Box, Heading } from '@chakra-ui/react';
-import CreateTaskForm from '../forms/CreateTaskForm';
-import axios from 'axios'
-const AssignTask = () => {
+
+import axios from 'axios';
+import EditTaskForm from '../forms/EditTaskForm';
+
+const EditTask = () => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
@@ -21,12 +23,12 @@ const AssignTask = () => {
     return (
         <>
             <Navbar />
-            <Heading margin={10} textAlign={'center'}>Assign A Task</Heading>
+            <Heading margin={10} textAlign={'center'}>Edit A Task</Heading>
             <Box margin={10} >
-                <CreateTaskForm users={users } />
+                <EditTaskForm users={users} />
             </Box>
         </>
     )
 };
 
-export default AssignTask
+export default EditTask

@@ -1,11 +1,11 @@
-import { Box, Button, Flex, FormControl, FormLabel, Input, Select, Textarea, useBreakpoint, useBreakpointValue, useToast } from '@chakra-ui/react';
+import { Box, Button, Flex, FormControl, FormLabel, Input, Select, Textarea, useBreakpointValue, useToast } from '@chakra-ui/react';
 import axios from 'axios';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 const CreateTaskForm = ({ users }) => {
     const [project, setProject] = useState('');
-    const [asignedTo, setAssignedTo] = useState('')
+    const [assignedTo, setAssignedTo] = useState('')
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('');
     const navigate = useNavigate();
@@ -22,7 +22,8 @@ const CreateTaskForm = ({ users }) => {
                     'Authorization': `Bearer ${accessToken}`
                 }
             }
-            await axios.post('http://localhost:8002/task/create', { project, asignedTo, title, description }, config);
+            // console.log(project, assignedTo, title, description);
+            await axios.post('http://localhost:8002/task/create', { project, assignedTo, title, description }, config);
             // console.log(data);
             toast({
                 title: "Task Created Successfully",
@@ -35,7 +36,7 @@ const CreateTaskForm = ({ users }) => {
         } catch (error) {
             console.log('Something went wrong at creating the task: ', error);
             toast({
-                title: "Something went wrong at creating the toast",
+                title: "Something went wrong at creating the task",
                 status: 'error',
                 'duration': 5000,
                 isClosable: true,
@@ -61,7 +62,7 @@ const CreateTaskForm = ({ users }) => {
                     <FormLabel>Assigned Task  To</FormLabel>
                     <Select placeholder='Select Assigned To' onChange={(e) => setAssignedTo(e.target.value)}>
                         {users.map((user) => (
-                            <option key={user._id} value={user.id}>{user.username}</option>
+                            <option key={user._id} value={user._id}>{user.username}</option>
                         ))}
                     </Select>
                 </FormControl>
