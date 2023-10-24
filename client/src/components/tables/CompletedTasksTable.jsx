@@ -88,14 +88,14 @@ const CompletedTasksTable = ({tasks,handleDelete}) => {
                                             <strong>Mark as Not-Completed</strong>
                                         </Checkbox >
                                         <Link to={`/edit/${task._id}` }>
-                                        <Button
+                                        {/* <Button
                                             size="sm"
                                             colorScheme="blue"
                                             
                                             mr={2}
                                         >
                                             Edit
-                                        </Button>
+                                        </Button> */}
                                         </Link>
                                         <Button
                                             size="sm"
