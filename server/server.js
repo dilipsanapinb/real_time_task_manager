@@ -27,6 +27,41 @@ app.get('/', (req,res) => {
 app.use('/user', userRouter);
 app.use('/task', taskRouter);
 
+
+
+
+
+// socket.io
+
+// socket.io namespace;
+const taskNamespace = io.of('/task');
+
+// listen the connection
+taskNamespace.on('connection', (socket) => {
+  console.log('A user connnected to the tasks namespace.');
+
+  // create the task
+  socket.on('createTask', (data) => {
+    console.log('Task created: ', data);
+    taskNamespace.emit('taskCreated', data)
+  });
+
+  // update a task;
+  socket.on('updateTask', (data) => {
+    console.log('Task updated: ', data);
+    
+    taskNamespace.emit('taskUpdated', data);
+  });
+
+  // delete task
+  socket.on('deleteTask', (taskId) => {
+    console.log('Task deleted', taskId);
+    taskNamespace.emit('taskDeleted', taskId);
+  });
+});
+
+
+
 server.listen(PORT, async () => {
     // before starting the server check the connection with DB in asynchronous manner;
     try {
