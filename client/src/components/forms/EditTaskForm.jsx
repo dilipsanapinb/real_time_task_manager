@@ -20,10 +20,10 @@ const [project, setProject] = useState('');
     
     // Fetch the data of task by id:
     useEffect(() => {
-        fethcTask();
+        fetchTask();
     }, []);
     
-    const fethcTask = async() => {
+    const fetchTask = async() => {
         try {
             const accessToken = JSON.parse(localStorage.getItem('accesToken'));
             const config = {

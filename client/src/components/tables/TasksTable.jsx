@@ -33,8 +33,10 @@ const TasksTable = ({ tasks, handleDelete }) => {
             }
             await axios.patch(`http://localhost:8002/task/update/${completed._id}`,updateData, config);
             // console.log(data);
-            const filteredTasks = tasks.filter((task) => !task.completed);
-            setCompletedTask(filteredTasks)
+            const filteredTasks = tasks.filter((task) =>task._id!==completed._id);
+            setCompletedTask(filteredTasks);
+
+
             toast({
                 title: "Task Status Updated",
                 status: 'success',
@@ -56,7 +58,7 @@ const TasksTable = ({ tasks, handleDelete }) => {
         onClose();
     }
     return (
-        <Box p={4} bg="white" boxShadow="md" borderRadius="lg">
+        <Box p={4} bg="white" boxShadow="md" borderRadius="lg" overflow={'auto'}>
             <Heading as="h2" size="lg" mb={4}>
                 Tasks Table
             </Heading>
@@ -68,6 +70,7 @@ const TasksTable = ({ tasks, handleDelete }) => {
                         <Th>Title</Th>
                         <Th>Description</Th>
                         <Th>Assigned To</Th>
+                        <Th>Assigned By</Th>
                         <Th>Actions</Th>
                     </Tr>
                 </Thead>
@@ -112,6 +115,7 @@ const TasksTable = ({ tasks, handleDelete }) => {
 
 const TaskRow = ({ task, handleTaskCompleted, handleDelete }) => {
     const [assignedToName, setAssignedToName] = useState('');
+    const [assignedByName, setAssignedByName] = useState('');
 
     useEffect(() => {
         const fetchUserName = async () => {
@@ -124,22 +128,27 @@ const TaskRow = ({ task, handleTaskCompleted, handleDelete }) => {
                     }
                 };
 
-                const { data } = await axios.get(`http://localhost:8002/user/${task.assignedTo}`, config);
-                // console.log(data);
-                setAssignedToName(data.user.username);
+                const [userData,assignedByData]=await Promise.all([await axios.get(`http://localhost:8002/user/${task.assignedTo}`, config),
+                
+                await axios.get(`http://localhost:8002/user/${task.assignedBy}`, config)])
+                
+                setAssignedToName(userData.data.user.username);
+                setAssignedByName(assignedByData.data.user.username);
             } catch (error) {
                 console.log('Error fetching user name: ', error);
                 setAssignedToName('N/A');
+                setAssignedByName('N/A');
             }
         }
         fetchUserName();
-    }, [task.assignedTo]);
+    }, [task.assignedTo,task.assignedBy]);
     return (
         <Tr>
             <Td>{task.project}</Td>
             <Td>{task.title}</Td>
             <Td>{task.description}</Td>
             <Td>{assignedToName}</Td>
+            <Td>{assignedByName}</Td>
             <Td>
                 <Flex>
                     <Checkbox

@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, FormLabel, HStack, Heading,Input,Text } from '@chakra-ui/react'
+import { Box, Button, FormControl, FormLabel, HStack, Heading,Input,InputGroup,InputRightElement,Text } from '@chakra-ui/react'
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -6,9 +6,14 @@ import { useToast } from '@chakra-ui/toast';
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [show, setShow] = useState(false);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const toast = useToast();
+
+    // handleCkick show and hide the password
+    const handleCkick = () => setShow(!show);
+    // navigate
     const handleNavigate = () => {
         navigate('/signup')
     }
@@ -37,7 +42,7 @@ const Login = () => {
                 title: 'Login Successful',
                 status: 'success',
                 duration: true,
-                position:'bottom',
+                position: 'bottom',
             })
             localStorage.setItem('accesToken', JSON.stringify(data.accessToken));
             setLoading(false);
@@ -75,7 +80,22 @@ const Login = () => {
             </FormControl>
             <FormControl>
                 <FormLabel marginBottom='16px'>Password</FormLabel>
-                <Input type='password' placeholder='Password' onChange={(e) => setPassword(e.target.value)} />
+                {/* enter the password */}
+                <InputGroup>
+                    <Input
+                        // if show then show the text else show the password format
+                        type={show ? 'text' : 'password'}
+                        placeholder="Enter Your Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    ></Input>
+                    <InputRightElement width="4.5rem">
+                        <Button h="1.75rem" size="sm" onClick={handleCkick}>
+                            {/* toggle the sow and hide */}
+                            {show ? 'Hide' : 'Show'}
+                        </Button>
+                    </InputRightElement>
+                </InputGroup>
             </FormControl>
 
             <Button colorScheme='blue' size='md' width='100%' marginTop='16px' marginBottom='16px' onClick={handleSubmit}>LOGIN</Button>
