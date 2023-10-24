@@ -62,7 +62,5 @@ For detailed API documentation and examples, please refer to our Postman collect
 - MongoDB
 
 
-## Frontend Screenshots:
 
-![Frontend LoginPage Screenshot](/images/LoginPage.png)
 
