@@ -1,8 +1,11 @@
 const express = require('express');
 const userControllers = require("../controllers/user.controllers");
 const userRouter = express.Router();
+const authenticateUser = require("../middlewares/authenticate.middleware");
 
 
+// get user profile
+userRouter.get('/getprofile',authenticateUser, userControllers.getUserProfile);
 // get all users
 userRouter.get('/allusers', userControllers.getAllUsers);
 

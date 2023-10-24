@@ -8,6 +8,27 @@ const privatePath = path.join(__dirname, "..", "jwtRS256.key");
 const privateKey = fs.readFileSync(privatePath, "utf8");
 
 
+// get a user profile
+exports.getUserProfile = async (req, res) => {
+    try {
+        const { userId } = req.body;
+        // console.log(req.body);
+        const user = await User.findById({ _id: userId });
+        if (!user) {
+            res
+                .status(404)
+                .json({
+                    message: "User Not Found, Please check your email or password",
+                });
+        }
+        res.status(200).json({ message: "User Found", user });
+    } catch (error) {
+        console.log("Error occcured: ", error.message);
+        res
+            .status(500)
+            .json({ message: "Something went wrong at getting the user profile" });
+    }
+};
 // get all users
 exports.getAllUsers = async (req, res) => {
     try {
@@ -40,7 +61,6 @@ exports.getUserById = async (req, res) => {
             .json({ message: "Something went wrong at gettiing the user by id" });
     }
 };
-
 
 // register the user controller;
 exports.registerUser = async (req, res) => {
