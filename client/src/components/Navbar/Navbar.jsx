@@ -68,7 +68,7 @@ const Navbar = () => {
                 aria-label="Open Drawer"
                 icon={<HamburgerIcon />}
                 onClick={taggleDrawer}
-                display={{ base: 'block', md: 'none' }}
+                display={{ base: 'block' }}
             />
             <Link to='/'>
                 <Box cursor='pointer' alignItems={'center'} marginLeft={10}>
