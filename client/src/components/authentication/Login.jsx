@@ -32,7 +32,7 @@ const Login = () => {
                 }
             }
             const { data } = await axios.post('http://localhost:8002/user/login', { email, password }, config);
-            // console.log(data);
+            console.log(data);
             toast({
                 title: 'Login Successful',
                 status: 'success',

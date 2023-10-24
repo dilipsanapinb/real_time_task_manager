@@ -17,8 +17,17 @@ exports.createTask = async (req, res) => {
 // Get All Tasks
 exports.getAllTasks = async (req, res) => {
     try {
-        const tasks = await Task.find();
-        res.json(tasks);
+        const userRole = req.body.userRole;
+        const userId = req.body.userId;
+        let tasks;
+        if (userRole === "admin") {
+            tasks = await Task.find();
+        } else {
+            tasks = await Task.find({ assignedTo: userId });
+        }
+
+        res.status(200).json(tasks);
+
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Error fetching tasks" });
