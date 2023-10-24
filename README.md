@@ -62,3 +62,7 @@ For detailed API documentation and examples, please refer to our Postman collect
 - MongoDB
 
 
+## Frontend Screenshots:
+
+![Frontend LoginPage Screenshot](https://github.com/dilipsanapinb/real_time_task_manager/blob/main/images/LoginPage.png)
+
