@@ -38,7 +38,7 @@ To set up the frontend client, navigate to the 'client' directory and follow the
 ## Deployed Backend:
 [Deployed Backend Link](https://taskmanager-900c.onrender.com/)
 - Backend deployed on render.
-- Sometimes render is slower, so please keep patients :).
+- Sometimes render is slower, so please keep patience :).
 
 ## Deployed fronend:
 [Deployed Frontend Link](https://imaginative-gaufre-5063ee.netlify.app/)
